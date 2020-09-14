@@ -31,13 +31,10 @@ npm run client
 
 ### Author
 
-Brad Traversy
-[Traversy Media](http://www.traversymedia.com)
+Sampath kumar P N
 
 ### Version
 
 1.0.0
 
-### License
 
-This project is licensed under the MIT License
