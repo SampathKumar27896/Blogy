@@ -1,11 +1,6 @@
 # React Express Blogging site
 
 
-
-### Redux Version
-This version does include Redux
-[Click Here For Redux Version](https://github.com/bradtraversy/react_redux_express_starter) 
-
 ## Quick Start
 
 ``` bash
