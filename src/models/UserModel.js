@@ -56,16 +56,17 @@ userSchema.methods.toJSON = function () {
     return userObject
 }
 userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email })
+    console.log("The email is "+email);
+    const user = await user.findOne({ email })
 
     if (!user) {
-        throw new Error('Unable to login')
+        throw new Error('Invalid email id')
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch) {
-        throw new Error('Unable to login')
+        throw new Error('Invalid password')
     }
 
     return user
@@ -84,7 +85,6 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    console.log(user._id);
     const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse')
 
     user.tokens = user.tokens.concat({ token })
@@ -95,15 +95,15 @@ userSchema.methods.generateAuthToken = async function () {
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
-
+    
     if (!user) {
-        throw new Error('Unable to login')
+        throw new Error('Invalid email id')
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
-
+    
     if (!isMatch) {
-        throw new Error('Unable to login')
+        throw new Error('Invalid password')
     }
 
     return user

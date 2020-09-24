@@ -1,36 +1,34 @@
 import React, { Component } from 'react';
 import './App.css';
-
-import Header from "./components/Header"
-import Card from "./components/Card"
-import Backdrop from "./components/Backdrop"
-import SimpleAlert from "./components/Alert"
-import Home from "./components/Home"
 import Routes from "./routes/Route";
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import { BrowserRouter } from 'react-router-dom';
-
-
+import { isUserAuthenticated, getUser } from './actions/AuthActions.js';
+import compose from 'recompose/compose';
+import { connect } from 'react-redux';
 
 class App extends Component {
- 
+  constructor(props){
+    super(props);
+  }
+  componentDidMount(){
+    const isTokenAvailable = 
+    this.props.getUser();
+  }
   render() {
     return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <div className="App"> 
-            <Routes />
-          </div>
-        </BrowserRouter>
-       </Provider>
-      
+        <div className="App"> 
+            <Routes auth={this.props.isAuthenticated}/>
+        </div>
     );
   }
   
 }
+  const mapStateToProps = (state) => ({
+    isAuthenticated: state.Auth.isAuthenticated,
+  });
+  export default compose(
+    connect(mapStateToProps,{isUserAuthenticated, getUser}),
+  )(App);
 
 
-export default App;
 
 

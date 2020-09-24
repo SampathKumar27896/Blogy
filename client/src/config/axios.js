@@ -33,9 +33,8 @@ instance.interceptors.response.use(response => {
 });
 instance.defaults.headers.common['Content-Type'] = 'application/json';
 authToken= getAuthenticationToken();
-if(authToken){
-    instance.defaults.headers.common['Authorization'] = authToken;
-}
+instance.defaults.headers.common['Authorization'] = authToken;
+
 
 
 export default instance;

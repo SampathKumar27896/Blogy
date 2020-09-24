@@ -1,11 +1,14 @@
-import { REGISTER,SET_USER, LOGOUT_SUCCESS, IS_AUTHENTICATED} from './Types';
+import { REGISTER,SET_USER, LOGOUT_SUCCESS, IS_AUTHENTICATED, LOGIN_SUCCESS} from './Types';
 import axiosConfig from './../config/axios';
-import {  getUserDetails } from '../utils/index';
+import {  getUserDetails,getAuthenticationToken } from '../utils/index';
 
 export const  registerUser = registerData => async dispatch => {
      
     try{
         const response = await axiosConfig.post('/register',registerData)
+        if(response.data.token){
+            axiosConfig.defaults.headers.common['Authorization'] = response.data.token;
+        }
         dispatch({
             type: REGISTER,
             payload : response.data
@@ -19,6 +22,29 @@ export const  registerUser = registerData => async dispatch => {
         console.log(response)
     }catch(error){
         console.log("from register error ")
+    }
+
+};
+
+export const  loginUser = registerData => async dispatch => {
+     
+    try{
+        const response = await axiosConfig.post('/login',registerData)
+        if(response.data.token){
+            axiosConfig.defaults.headers.common['Authorization'] = response.data.token;
+        }
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload : response.data
+        });
+        if(response.data.user){
+            dispatch({
+                type: SET_USER,
+                payload : response.data.user
+            });
+        }
+    }catch(error){
+        console.log(error.message)
     }
 
 };
@@ -53,8 +79,10 @@ export const  getUser = () => async dispatch => {
 export const  isUserAuthenticated = () => async dispatch => {
 
     try{
+        const token = getAuthenticationToken();
         dispatch({
             type: IS_AUTHENTICATED,
+            payload : token,
         });
         
     }catch(error){

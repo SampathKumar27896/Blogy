@@ -1,21 +1,22 @@
 import { Route, BrowserRouter, Switch} from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Home from "../components/Home"
 import Login from "../components/Login"
 import Register from "../components/Register"
-import requireAuth from '../utils/Authenticate';
 
-export default function AppRoute(props) {
-    
+
+import  ProtectedRoute  from './ProtectedRoute';
+
+const  AppRoute = function(props) {
     return (
-        
-        <Switch>
-            <Route exact path='/' component={requireAuth(Home)}/>
-            <Route exact path='/register' component={Register}/>
-            <Route exact path='/login' component={Login}/>
-        </Switch>
-        
+        <BrowserRouter>
+            <Switch>
+                <ProtectedRoute auth={props.auth} exact path='/' component={Home}/>
+                <Route exact path='/register' component={Register}/>
+                <Route exact path='/login' component={Login}/>
+            </Switch>
+        </BrowserRouter>
     );
   }
 
-  
+  export default AppRoute;

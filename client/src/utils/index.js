@@ -13,3 +13,7 @@ exports.setUserDetails = function(user){
 exports.getUserDetails = function(){
     return JSON.parse(localStorage.getItem('user'));
 }
+
+exports.verifyToken = function(){
+    return (localStorage.getItem('token') !== 'null')? true : false;
+}

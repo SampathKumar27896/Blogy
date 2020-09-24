@@ -40,10 +40,14 @@ function ButtonAppBar(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    
+  }
+
+  const handleLogout = () => {
     props.logoutUser();
     if(!props.isAuthenticated){
       props.history.push('/login');
-    }
+  }
 
   };
   return (
@@ -81,7 +85,7 @@ function ButtonAppBar(props) {
               >
                 
                 <MenuItem onClick={handleClose}>{props.data.email}</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 
               </Menu>
         </Toolbar>

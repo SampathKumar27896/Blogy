@@ -10,9 +10,6 @@ import { pageLoading, pageLoaded } from '../actions/PageLoaderActions';
 import compose from 'recompose/compose';
 import SimpleAlert from "../components/Alert";
 import BackDrop from "../components/Backdrop";
-import PageLoaderReducer from '../reducers/PageLoaderReducer';
-import { Redirect } from 'react-router';
-import { Link, NavLink, withRouter } from 'react-router-dom'
 
 
 const useStyles = {
@@ -42,7 +39,7 @@ class Register extends React.Component {
         re_password : '',
       }
       this.onChange = this.onChange.bind(this);
-      this.onSubmit = this.onSubmit.bind(this);
+      this.handleSubmit  = this.handleSubmit.bind(this);
       this.props.clearStatus();
       
     }
@@ -51,18 +48,16 @@ class Register extends React.Component {
       this.setState({[e.target.name] : e.target.value});
     }
 
-    onSubmit(e){
+    handleSubmit(e){
       e.preventDefault();
       const registerData = {
          ...this.state
       }
       this.props.registerUser(registerData,this.props.history);
-      // this.props.history.push('/');
-     
     }
     render() {
       const { classes } = this.props;
-      if(this.props.isAuthenticated){
+      if(this.props.redirect){
         setTimeout(() => {
           this.props.history.push('/');
         },1000)
@@ -70,7 +65,7 @@ class Register extends React.Component {
             
       return (
         
-              <form className={classes.formClass} onSubmit={this.onSubmit}>
+              <form className={classes.formClass} onSubmit={this.handleSubmit }>
                 
                   {(this.props.pageLoad) ? <BackDrop/> : ''}
                   <SimpleAlert class={classes.alert} 
@@ -120,7 +115,7 @@ class Register extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.Auth.isAuthenticated,
+  redirect: state.Auth.redirect,
   appStatus : state.Status,
   pageLoad : state.PageLoader.isLoading,
 });

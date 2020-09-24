@@ -9,6 +9,7 @@ import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = {
   
@@ -29,9 +30,7 @@ class Home extends React.Component {
     }
     
     componentDidMount(){
-      this.props.getUser();
-      this.props.getPosts();
-      console.log(this.props.isAuthenticated);
+        this.props.getPosts(); 
     }
     logoutUser(isAuthenticated){
       console.log("Function called value is" + isAuthenticated);
@@ -73,5 +72,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
  withStyles(useStyles),
+ withRouter,
   connect(mapStateToProps,{getPosts,getStatus,clearStatus,getUser}),
 )(Home);

@@ -13,6 +13,7 @@ export const GET_STATUS = 'GET_STATUS';
 export const CLEAR_STATUS = 'CLEAR_STATUS';
 export const IS_AUTHENTICATED = 'IS_AUTHENTICATED';
 
+
 //User details
 export const SET_USER = 'SET_USER';
 export const GET_USER = 'GET_USER';
