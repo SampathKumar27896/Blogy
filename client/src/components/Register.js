@@ -10,9 +10,10 @@ import { pageLoading, pageLoaded } from '../actions/PageLoaderActions';
 import compose from 'recompose/compose';
 import SimpleAlert from "../components/Alert";
 import BackDrop from "../components/Backdrop";
+import theme from './Theme';
 
 
-const useStyles = {
+const useStyles = theme => ({
   
   formClass : {
       textAlign : "center",
@@ -20,14 +21,15 @@ const useStyles = {
   },
   registerButton : {
       width : "200px",
-      margin : "30px"
+      margin : "30px",
+      backgroundColor: theme.palette.primary
   },
   alert : {
     width : '25%',
     marginLeft: '37%',
     
   }
-};
+});
 
 class Register extends React.Component {
     constructor(props){
@@ -77,6 +79,7 @@ class Register extends React.Component {
                   label="user name" 
                   name="user_name"
                   onChange={this.onChange}
+                  className={classes.test}
                   />
                   <br/>
                   <TextField id="standard-basic" 
